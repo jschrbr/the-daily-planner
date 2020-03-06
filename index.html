@@ -27,8 +27,28 @@
   />
   <link
     rel="stylesheet"
-    href="assets/style.css"
+    href="./assets/style.css"
   />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+  >
+  <!-- Google Fonts -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  >
+  <!-- Bootstrap core CSS -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <!-- Material Design Bootstrap -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.0/css/mdb.min.css"
+    rel="stylesheet"
+  >
   <title>Work Day Scheduler</title>
 </head>
 
@@ -40,14 +60,229 @@
       id="currentDay"
       class="lead"
     ></p>
+    <div style="display: flex; justify-content: center;">
+      <span class="fill-space"></span>
+      <div class="card key text-muted">past</div>
+      <span class="fill-space"></span>
+      <div class="card key bg-primary text-white">current</div>
+      <span class="fill-space"></span>
+
+      <div class="card key">future</div>
+      <span class="fill-space"></span>
+
   </header>
   <div class="container">
-    <!-- Timeblocks go here -->
-  </div>
+    <!--Accordion wrapper-->
 
+    <h1 id="day">Day</h1>
+    <!--Accordion wrapper-->
+    <div
+      class="accordion md-accordion"
+      id="accordionEx"
+      role="tablist"
+      aria-multiselectable="true"
+    >
+      <!-- Accordion card -->
+      <div class="card text-muted">
+
+        <!-- Card header -->
+        <div
+          class="card-header"
+          role="tab"
+          id="hea"
+        >
+          <a
+            class="collapsed text-muted"
+            data-toggle="collapse"
+            data-parent="#accordionEx"
+            href="#coll"
+            aria-expanded="false"
+            aria-controls="coll"
+          >
+            <span id="time">08:00</span>
+
+            <h5 class="mb-0">
+              <span class="fill-space"></span>
+              <span id="title">123456789012345...</span>
+              <span class="fill-space"></span>
+
+              <i class="float-right fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div
+          id="coll"
+          class="collapse"
+          role="tabpanel"
+          aria-labelledby="hea"
+          data-parent="#accordionEx"
+        >
+          <div class="card-body">
+            <div id="title-container">
+              <span>
+                <h5>Title:</h5>
+              </span>
+              <span id="title">123456789012345...</span>
+
+            </div>
+            <div id="desc-container">
+              <span>
+                <h5>Desc:</h5>
+              </span>
+              <span id="desc">123456789012345...</span>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Accordion card -->
+
+      <!-- Accordion card -->
+      <div class="card bg-primary text-white">
+
+        <!-- Card header -->
+        <div
+          class="card-header"
+          role="tab"
+          id="hea2"
+        >
+          <a
+            class="collapsed text-white"
+            data-toggle="collapse"
+            data-parent="#accordionEx"
+            href="#coll2"
+            aria-expanded="false"
+            aria-controls="coll2"
+          >
+            <span id="time">08:00</span>
+
+            <h5 class="mb-0">
+              <span class="fill-space"></span>
+              <span id="title">123456789012345...</span>
+              <span class="fill-space"></span>
+
+              <i class="float-right fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div
+          id="coll2"
+          class="collapse"
+          role="tabpanel"
+          aria-labelledby="hea2"
+          data-parent="#accordionEx"
+        >
+          <div class="card-body">
+            <div id="title-container">
+              <span>
+                <h5>Title:</h5>
+              </span>
+              <span id="title">123456789012345...</span>
+
+            </div>
+            <div id="desc-container">
+              <span>
+                <h5>Desc:</h5>
+              </span>
+              <span id="desc">123456789012345...</span>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Accordion card -->
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div
+          class="
+          card-header"
+          role="tab"
+          id="headingTwo2"
+        >
+          <a
+            class="collapsed text-dark"
+            data-toggle="collapse"
+            data-parent="#accordionEx"
+            href="#collapseTwo2"
+            aria-expanded="false"
+            aria-controls="collapseTwo2"
+          >
+            <span id="time">08:00</span>
+
+            <h5 class="mb-0">
+              <span class="fill-space"></span>
+              <span id="title">123456789012345...</span>
+              <span class="fill-space"></span>
+
+              <i class="float-right fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div
+          id="collapseTwo2"
+          class="collapse"
+          role="tabpanel"
+          aria-labelledby="headingTwo2"
+          data-parent="#accordionEx"
+        >
+          <div class="card-body">
+            <div id="title-container">
+              <span>
+                <h5>Title:</h5>
+              </span>
+              <span id="title">123456789012345...</span>
+
+            </div>
+            <div id="desc-container">
+              <span>
+                <h5>Desc:</h5>
+              </span>
+              <span id="desc">123456789012345...</span>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Accordion card -->
+
+    </div>
+    <!-- Accordion wrapper -->
+  </div>
+  <!-- JQuery -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+  ></script>
+  <!-- Bootstrap tooltips -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+  ></script>
+  <!-- Bootstrap core JavaScript -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"
+  ></script>
+  <!-- MDB core JavaScript -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.0/js/mdb.min.js"
+  ></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="assets/planner.js"></script>
+  <script src="./assets/planner.js"></script>
 </body>
 
 </html>
