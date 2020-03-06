@@ -3,14 +3,6 @@ async function clearStore() {
     day: moment().format("dddd"),
     currentHour: moment().format("HH"),
     hours: [
-      { 0: "" },
-      { 1: "" },
-      { 2: "" },
-      { 3: "" },
-      { 4: "" },
-      { 5: "" },
-      { 6: "" },
-      { 7: "" },
       { 8: "" },
       { 9: "" },
       { 10: "" },
@@ -21,16 +13,12 @@ async function clearStore() {
       { 15: "" },
       { 16: "" },
       { 17: "" },
-      { 18: "" },
-      { 19: "" },
-      { 20: "" },
-      { 21: "" },
-      { 22: "" },
-      { 23: "" }
+      { 18: "" }
     ]
   };
   localStorage.setItem("response", JSON.stringify(plan));
 }
+
 if (localStorage.getItem("response") == null) {
   clearStore();
 }
@@ -50,7 +38,7 @@ function createCardHeader(hour, titleString, currentHour) {
     .attr({
       "data-toggle": "collapse",
       "data-parent": "#accordionEx",
-      href: "#" + "body" + hour,
+      href: "#body" + hour,
       "aria-expanded": "false",
       "aria-controls": "body" + hour,
       id: hour
