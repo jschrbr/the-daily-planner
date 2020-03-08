@@ -1,8 +1,10 @@
+const currentDayEl = $("#currentDay");
+
 async function clearStore() {
   let plan = {
-    day: moment().format("dddd"),
+    currentDay: moment().format("dddd"),
     currentHour: moment().format("HH"),
-    hours: [
+    hoursList: [
       { 8: "" },
       { 9: "" },
       { 10: "" },
@@ -19,8 +21,45 @@ async function clearStore() {
   localStorage.setItem("response", JSON.stringify(plan));
 }
 
-if (localStorage.getItem("response") == null) {
+if (!localStorage.getItem("response")) {
   clearStore();
+}
+
+function timedUpdate() {
+  $("#time").text(moment().format("HH:mm:ss"));
+
+  if (currentDayEl.text() != moment().format("dddd")) {
+    clearStore();
+    $("#accordionEx").text("");
+    renderCards();
+  }
+
+  let plans = JSON.parse(localStorage.getItem("response"));
+
+  plans.hoursList.forEach((hour, index) => {
+    hour = Object.keys(hour)[0];
+    let hourID = hour;
+
+    if (hour < 10) {
+      hourID = "0" + hour;
+    }
+
+    let newDesc = $("#content" + hourID).text();
+
+    plans.hoursList[index][hour] = newDesc;
+    $("#titleHeader" + hourID).text(newDesc.substring(0, 15));
+  });
+
+  localStorage.setItem("response", JSON.stringify(plans));
+
+  if (plans.currentHour != moment().format("HH")) {
+    plans.currentHour = moment().format("HH");
+    localStorage.setItem("response", JSON.stringify(plans));
+    $("#accordionEx").text("");
+    renderCards();
+  }
+
+  setTimeout(timedUpdate, 1000);
 }
 
 function createCardHeader(hour, titleString, currentHour) {
@@ -33,7 +72,7 @@ function createCardHeader(hour, titleString, currentHour) {
       role: "tab"
     });
 
-  let buttonEx = $("<a>")
+  let buttonExpand = $("<a>")
     .addClass(["collapsed", "text-dark"])
     .attr({
       "data-toggle": "collapse",
@@ -43,11 +82,12 @@ function createCardHeader(hour, titleString, currentHour) {
       "aria-controls": "body" + hour,
       id: hour
     });
-  let fillSpace = $("<span>").addClass("fill-space");
-  let fillSpace2 = $("<span>").addClass("fill-space");
-  let heading = $("<h5>")
-    .addClass("mb-0")
-    .css({ display: "flex", "justify-content": "center" });
+
+  let fillSpace = function() {
+    return $("<span>").addClass("fill-space");
+  };
+
+  let heading = $("<h5>").addClass(["mb-0", "flex-div"]);
 
   let time = $("<span>").append(hour + ":00 ");
 
@@ -61,17 +101,17 @@ function createCardHeader(hour, titleString, currentHour) {
     "fa-angle-down",
     "rotate-icon"
   ]);
-  heading.append(time, fillSpace, title, fillSpace2, icon);
-  buttonEx.append(heading);
+  heading.append(time, fillSpace(), title, fillSpace(), icon);
+  buttonExpand.append(heading);
 
   if (hour == currentHour) {
     card.addClass(["bg-primary", "text-white"]);
-    buttonEx.removeClass(["text-dark", "collapsed"]).addClass("text-white");
+    buttonExpand.removeClass(["text-dark", "collapsed"]).addClass("text-white");
   } else if (hour < currentHour) {
     card.addClass("text-muted");
-    buttonEx.removeClass("text-dark").addClass("text-muted");
+    buttonExpand.removeClass("text-dark").addClass("text-muted");
   }
-  cardHeader.append(buttonEx);
+  cardHeader.append(buttonExpand);
 
   return card.append(cardHeader);
 }
@@ -109,57 +149,20 @@ function createCardBody(hour, titleString, currentHour) {
   return collapse;
 }
 
-function createCard(hour, titleString, currentHour) {
-  if (hour < 10) {
-    hour = "0" + hour;
-  }
-  let card = createCardHeader(hour, titleString, currentHour);
-  card.append(createCardBody(hour, titleString, currentHour));
-  $("#accordionEx").append(card);
-}
-
-function timedUpdate() {
-  $("#time").text(moment().format("HH:mm:ss"));
-  var plans = JSON.parse(localStorage.getItem("response"));
-
-  plans.hours.forEach((hour, index) => {
+async function renderCards() {
+  let plans = JSON.parse(localStorage.getItem("response"));
+  plans.hoursList.forEach((hour, index) => {
     hour = Object.keys(hour)[0];
-    let hourID = hour;
+    let title = plans.hoursList[index][hour];
+
     if (hour < 10) {
-      hourID = "0" + hour;
+      hour = "0" + hour;
     }
-    let newDesc = $("#content" + hourID).text();
-
-    plans.hours[index][hour] = newDesc;
-    $("#titleHeader" + hourID).text(newDesc.substring(0, 15));
+    let card = createCardHeader(hour, title, plans.currentHour);
+    card.append(createCardBody(hour, title, plans.currentHour));
+    $("#accordionEx").append(card);
   });
-  localStorage.setItem("response", JSON.stringify(plans));
-
-  if ($("#day").text() != moment().format("dddd")) {
-    clearStore();
-    $("#accordionEx").text("");
-    setup();
-  }
-
-  if (plans.currentHour != moment().format("HH")) {
-    plans.currentHour = moment().format("HH");
-    localStorage.setItem("response", JSON.stringify(plans));
-
-    $("#accordionEx").text("");
-    setup();
-  }
-
-  setTimeout(timedUpdate, 1000);
+  currentDayEl.text(plans.currentDay);
 }
 
-async function setup() {
-  var plans = JSON.parse(localStorage.getItem("response"));
-  plans.hours.forEach((hour, index) => {
-    var hour = Object.keys(hour)[0];
-    var title = plans.hours[index][hour];
-    createCard(hour, title, plans.currentHour);
-  });
-  $("#day").text(plans.day);
-}
-
-setup().then(timedUpdate());
+renderCards().then(timedUpdate());

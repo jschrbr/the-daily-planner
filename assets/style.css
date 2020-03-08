@@ -21,6 +21,11 @@ textarea {
   border-bottom: 10px solid black;
 }
 
+.flex-div {
+  display: flex;
+  justify-content: center;
+}
+
 .description {
   white-space: pre-wrap;
 }

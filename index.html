@@ -56,27 +56,21 @@
   <header class="jumbotron">
     <h1 class="display-3">Work Day Scheduler</h1>
     <p class="lead">A simple calendar app for scheduling your work day</p>
-    <p
-      id="currentDay"
-      class="lead"
-    ></p>
-    <div style="display: flex; justify-content: center;">
+    <div class="flex-div">
       <span class="fill-space"></span>
-      <div class="card key text-muted">past</div>
+      <div class="card key text-muted">Ended</div>
       <span class="fill-space"></span>
-      <div class="card key bg-primary text-white">current</div>
+      <div class="card key bg-primary text-white">Ongoing</div>
       <span class="fill-space"></span>
-
-      <div class="card key">future</div>
+      <div class="card key">Planned</div>
       <span class="fill-space"></span>
-
+    </div>
   </header>
   <div class="container">
     <!--Accordion wrapper-->
     <div class="clearfix">
       <div class="float-left">
-        <h1 id="day">Day</h1>
-
+        <h1 id="currentDay">Day</h1>
       </div>
       <div class="float-right">
         <h1 id="time">Time</h1>
@@ -93,6 +87,9 @@
     > </div>
     <!-- Accordion wrapper -->
   </div>
+
+
+
   <!-- JQuery -->
   <script
     type="text/javascript"
